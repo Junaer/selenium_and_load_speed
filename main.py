@@ -1,15 +1,11 @@
 import glob
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import os.path
 import time
-import urllib.request
 
-Base_url = "https://www.facebook.com/"
 driver = webdriver.Firefox(executable_path=r'/home/evgen/cod/dj/selenium_and_load_speed/geckodriver')
-driver.get(Base_url)
 
 class selenium_download():
     def __init__(self, path, name):
@@ -44,11 +40,11 @@ class selenium_download():
         print(run_time)
         return round(run_time, 2)
 
-    def selenium_run_for_7zip(self):
-        driver.get(url='https://www.7-zip.org')
-        download_7zip = driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr/td[2]/table/tbody/tr/td[1]/table[1]/tbody/tr[2]/td[1]/a')
+    def selenium_run_for_skype(self):
+        driver.get(url='https://www.skype.com/ru/get-skype/')
+        download_skype = driver.find_element(by=By.XPATH, value='/html/body/form/div[5]/section/div/div[1]/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/div/span/span[1]/a')
         start = time.perf_counter()
-        download_7zip.click()
+        download_skype.click()
         while True:
             download_folder = os.path.expanduser(self.path)
             filenames = glob.glob(download_folder + self.name)
@@ -67,13 +63,6 @@ class selenium_download():
         run_time = time.perf_counter() - start
         print(run_time)
         return round(run_time, 2)
-        # download_7zip = driver.find_element(by=By.XPATH, value='//*[@id="sidebar"]/nav/ul/li[1]/a')
-        # start = time.perf_counter()
-        # download_7zip.click()
-        # run_time = time.perf_counter() - start
-        # driver.switch_to.window(driver.window_handles[0])
-        # driver.close()
-        # return round(run_time, 2)
 
     def get_avg_speed(self, func):
         time_download = func
@@ -86,10 +75,10 @@ class selenium_download():
 
 
 
-# if __name__ == '__main__':
-#     # download_git = selenium_download('/home/gogelgans/Загрузки/', 'Git-2.36.1-64-bit.exe')
-#     # download_git.get_avg_speed(download_git.selenium_run_for_git())
-#     download_7zip = selenium_download('/home/gogelgans/Загрузки/', '')
-#     download_7zip.selenium_run_for_7zip()
+if __name__ == '__main__':
+    download_git = selenium_download('/home/gogelgans/Загрузки/', 'Git-2.36.1-64-bit.exe')
+    download_git.get_avg_speed(download_git.selenium_run_for_git())
+    download_skype = selenium_download('/home/gogelgans/Загрузки/', 'skypeforlinux-64.rpm')
+    download_skype.get_avg_speed(download_skype.selenium_run_for_skype())
 
 
