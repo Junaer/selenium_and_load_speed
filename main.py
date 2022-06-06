@@ -7,7 +7,9 @@ import os.path
 import time
 import urllib.request
 
-driver = webdriver.Chrome('/home/gogelgans/Документы/work/homework/selenium_and_load_speed/chromedriver')
+Base_url = "https://www.facebook.com/"
+driver = webdriver.Firefox(executable_path=r'/home/evgen/cod/dj/selenium_and_load_speed/geckodriver')
+driver.get(Base_url)
 
 class selenium_download():
     def __init__(self, path, name):
@@ -84,10 +86,10 @@ class selenium_download():
 
 
 
-if __name__ == '__main__':
-    # download_git = selenium_download('/home/gogelgans/Загрузки/', 'Git-2.36.1-64-bit.exe')
-    # download_git.get_avg_speed(download_git.selenium_run_for_git())
-    download_7zip = selenium_download('/home/gogelgans/Загрузки/', '')
-    download_7zip.selenium_run_for_7zip()
+# if __name__ == '__main__':
+#     # download_git = selenium_download('/home/gogelgans/Загрузки/', 'Git-2.36.1-64-bit.exe')
+#     # download_git.get_avg_speed(download_git.selenium_run_for_git())
+#     download_7zip = selenium_download('/home/gogelgans/Загрузки/', '')
+#     download_7zip.selenium_run_for_7zip()
 
 
