@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import os.path
 import time
 
-driver = webdriver.Firefox(executable_path=r'/home/evgen/cod/dj/selenium_and_load_speed/geckodriver')
+driver = webdriver.Firefox(executable_path=r'/home/gogelgans/Документы/work/homework/selenium_and_load_speed/geckodriver')
 
 class selenium_download():
     def __init__(self, path, name):
@@ -42,18 +42,21 @@ class selenium_download():
 
     def selenium_run_for_skype(self):
         driver.get(url='https://www.skype.com/ru/get-skype/')
-        download_skype = driver.find_element(by=By.XPATH, value='/html/body/form/div[5]/section/div/div[1]/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/div/span/span[1]/a')
-        start = time.perf_counter()
+        download_skype = driver.find_element(by=By.XPATH, value='/html/body/form/div[5]/section/div/div[1]/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/div/span/span[2]')
         download_skype.click()
-        while True:
+        download_skype2 = driver.find_element(by=By.XPATH, value='/html/body/form/div[5]/section/div/div[1]/div[1]/div/div/div/div/div/div[1]/div/div[2]/ul/li[3]/a')
+        start = time.perf_counter()
+        download_skype2.click()
+
+        while os.path.getsize('/home/gogelgans/Загрузки/Skype-8.83.0.409.exe') != 86797200:
             download_folder = os.path.expanduser(self.path)
             filenames = glob.glob(download_folder + self.name)
-            if len(filenames) > 0 and not any('.crdownload' in self.name for self.name in filenames):
-                break
+            if len(filenames) > 0 and not any('.part' in self.name for self.name in filenames):
+                continue
             for self.name in filenames:
-                if self.name.endswith('.crdownload'):
+                if self.name.endswith('.part'):
                     continue
-                if self.name.endswith('.xls'):
+                if self.name.endswith('.part'):
                     print('')
                     print('Download complete.')
                     print('')
@@ -78,7 +81,5 @@ class selenium_download():
 if __name__ == '__main__':
     download_git = selenium_download('/home/gogelgans/Загрузки/', 'Git-2.36.1-64-bit.exe')
     download_git.get_avg_speed(download_git.selenium_run_for_git())
-    download_skype = selenium_download('/home/gogelgans/Загрузки/', 'skypeforlinux-64.rpm')
+    download_skype = selenium_download('/home/gogelgans/Загрузки/', 'Skype-8.83.0.409.exe')
     download_skype.get_avg_speed(download_skype.selenium_run_for_skype())
-
-
